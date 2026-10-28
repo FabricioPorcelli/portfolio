@@ -45,14 +45,15 @@
   },
   "projects": [
     {
-      "title": "Weather API Wrapper",
+      "title": "Weather Assistant",
       "description": {
-        "en": "REST API in Python (FastAPI) that wraps the Visual Crossing weather service and exposes current weather, forecast, and history through a stable, versioned contract. Features Redis caching with per-datatype TTL, IP rate limiting, Pydantic validation, and 26 tests that run without network or Redis. Docker Compose spins up the API and Redis with a single command.",
-        "es": "API REST en Python (FastAPI) que envuelve el servicio climático Visual Crossing y expone clima actual, pronóstico e histórico mediante un contrato propio y versionado. Incluye caché en Redis con TTL por tipo de dato, rate limiting por IP, validación con Pydantic y 26 tests que corren sin red ni Redis. Docker Compose levanta la API y Redis con un solo comando."
+        "en": "LLM-powered weather assistant built on top of Weather API. Combines deterministic advice rules (umbrella, clothing, watering) with a tool-calling agent, SSE streaming chat with persistent sessions and history, activity scoring, and best-day ranking. Includes 313 offline tests and an LLM evaluation suite measuring tool selection and groundedness.",
+        "es": "Asistente de clima potenciado por LLM sobre Weather API. Combina reglas deterministas de consejos (paraguas, ropa, riego) con un agente de tool calling, chat con streaming SSE, sesiones e historial persistidos, puntuación de actividades y ranking del mejor día. Incluye 313 tests offline y una suite de evals de LLM que mide selección de herramientas y groundedness."
       },
-      "tags": ["Python", "FastAPI", "REST API", "Redis", "Docker", "Pytest", "Caching"],
-      "githubUrl": "https://github.com/FabricioPorcelli/weather-api",
-      "externalUrl": "#"
+      "tags": ["Python", "FastAPI", "LLM Agent", "Tool Calling", "SSE", "PostgreSQL", "Docker", "Pytest"],
+      "githubUrl": "https://github.com/FabricioPorcelli/weather-assistant",
+      "externalUrl": "#",
+      "working": true
     },
     {
       "title": "Weather Dashboard",
@@ -62,6 +63,17 @@
       },
       "tags": ["JavaScript", "Leaflet", "Chart.js", "REST API", "Vanilla JS", "Frontend"],
       "githubUrl": "https://github.com/FabricioPorcelli/weather-dashboard",
+      "externalUrl": "#",
+      "working": true
+    },
+    {
+      "title": "Weather API Wrapper",
+      "description": {
+        "en": "REST API in Python (FastAPI) that wraps the Visual Crossing weather service and exposes current weather, forecast, and history through a stable, versioned contract. Features Redis caching with per-datatype TTL, IP rate limiting, Pydantic validation, and 26 tests that run without network or Redis. Docker Compose spins up the API and Redis with a single command.",
+        "es": "API REST en Python (FastAPI) que envuelve el servicio climático Visual Crossing y expone clima actual, pronóstico e histórico mediante un contrato propio y versionado. Incluye caché en Redis con TTL por tipo de dato, rate limiting por IP, validación con Pydantic y 26 tests que corren sin red ni Redis. Docker Compose levanta la API y Redis con un solo comando."
+      },
+      "tags": ["Python", "FastAPI", "REST API", "Redis", "Docker", "Pytest", "Caching"],
+      "githubUrl": "https://github.com/FabricioPorcelli/weather-api",
       "externalUrl": "#"
     },
     {
@@ -86,16 +98,6 @@
       "externalUrl": "https://agrovisionedge.streamlit.app/"
     },
     {
-      "title": "Data Warehousing & Business Intelligence",
-      "description": {
-        "en": "Designed and built an end-to-end ETL pipeline using MS Visual Studio (SSIS) to ingest and transform relational data into a Data Warehouse (MS SQL Server), developing interactive analytical dashboards in Power BI for decision-making.",
-        "es": "Diseño y construcción de un pipeline ETL end-to-end utilizando MS Visual Studio (SSIS) para la ingesta y transformación de datos relacionales hacia un Data Warehouse (MS SQL Server), desarrollando tableros analíticos interactivos en Power BI para la toma de decisiones."
-      },
-      "tags": ["ETL", "SSIS", "MS SQL Server", "Data Warehousing", "Power BI", "SQL"],
-      "githubUrl": "https://github.com/FabricioPorcelli/BBDD2-TUIA-TF",
-      "externalUrl": "#"
-    },
-    {
       "title": "Agentic Multi-Source RAG",
       "description": {
         "en": "Engineered an intelligent conversational assistant using Agentic RAG architecture. Integrated vector (ChromaDB/FAISS), tabular, and graph databases to enable multi-source information retrieval, serving responses through lightweight LLMs via REST APIs.",
@@ -103,6 +105,16 @@
       },
       "tags": ["Agentic RAG", "ChromaDB", "FAISS", "Graph DBs", "LangChain", "LLM APIs", "NLP"],
       "githubUrl": "https://github.com/FabricioPorcelli/NLP-TUIA-TF",
+      "externalUrl": "#"
+    },
+    {
+      "title": "Data Warehousing & Business Intelligence",
+      "description": {
+        "en": "Designed and built an end-to-end ETL pipeline using MS Visual Studio (SSIS) to ingest and transform relational data into a Data Warehouse (MS SQL Server), developing interactive analytical dashboards in Power BI for decision-making.",
+        "es": "Diseño y construcción de un pipeline ETL end-to-end utilizando MS Visual Studio (SSIS) para la ingesta y transformación de datos relacionales hacia un Data Warehouse (MS SQL Server), desarrollando tableros analíticos interactivos en Power BI para la toma de decisiones."
+      },
+      "tags": ["ETL", "SSIS", "MS SQL Server", "Data Warehousing", "Power BI", "SQL"],
+      "githubUrl": "https://github.com/FabricioPorcelli/BBDD2-TUIA-TF",
       "externalUrl": "#"
     }
   ],
