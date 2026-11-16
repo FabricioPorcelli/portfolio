@@ -3,17 +3,27 @@
 //
 // Deploy: ver workers/README.md
 
-const ALLOWED_ORIGINS = [
-  'https://fabricioporcelli.com.ar',
-  'https://www.fabricioporcelli.com.ar',
-  'https://fabricioporcelli.github.io',
-  'http://localhost:8000',
-  'http://127.0.0.1:8000',
-  'http://localhost:5500',
-  'http://127.0.0.1:5500',
-];
-
 const MAX_LENGTH = { name: 100, email: 254, message: 5000 };
+
+function isAllowedOrigin(origin) {
+  try {
+    const url = new URL(origin);
+    const host = url.hostname.toLowerCase();
+
+    const isLocal =
+      url.protocol === 'http:' && (host === 'localhost' || host === '127.0.0.1');
+
+    const isProduction =
+      url.protocol === 'https:' &&
+      (host === 'fabricioporcelli.com.ar' ||
+        host.endsWith('.fabricioporcelli.com.ar') ||
+        host === 'fabricioporcelli.github.io');
+
+    return isLocal || isProduction;
+  } catch {
+    return false;
+  }
+}
 
 export default {
   async fetch(request, env) {
@@ -28,7 +38,7 @@ export default {
       return jsonResponse({ success: false, message: 'Method not allowed' }, 405, cors);
     }
 
-    if (!ALLOWED_ORIGINS.includes(origin)) {
+    if (!isAllowedOrigin(origin)) {
       return jsonResponse({ success: false, message: 'Origin not allowed' }, 403, cors);
     }
 
@@ -105,7 +115,7 @@ function corsHeaders(origin) {
     'Access-Control-Max-Age': '86400',
     'Vary': 'Origin',
   };
-  if (ALLOWED_ORIGINS.includes(origin)) {
+  if (isAllowedOrigin(origin)) {
     headers['Access-Control-Allow-Origin'] = origin;
   }
   return headers;
