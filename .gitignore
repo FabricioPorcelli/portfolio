@@ -1,2 +1,5 @@
 *pdf
 .vscode
+.env
+.env.*
+!.env.example

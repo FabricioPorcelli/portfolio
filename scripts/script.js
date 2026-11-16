@@ -117,27 +117,79 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', updateActiveLink);
 
   if (form) {
-    form.addEventListener('submit', function (e) {
+    form.addEventListener('submit', async function (e) {
       e.preventDefault();
+
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
       const message = document.getElementById('message').value.trim();
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+      const status = document.getElementById('form-status');
+      const submitBtn = form.querySelector('button[type="submit"]');
 
-      const errMsgs = {
-        en: { name: 'Please enter your name.', email: 'Please enter a valid email.', message: 'Please write a message.' },
-        es: { name: 'Por favor, ingresá tu nombre.', email: 'Por favor, ingresá un email válido.', message: 'Por favor, escribí un mensaje.' }
+      const msgs = {
+        en: {
+          name: 'Please enter your name.',
+          email: 'Please enter a valid email.',
+          message: 'Please write a message.',
+          sending: 'Sending...',
+          success: "Message sent! I'll get back to you soon.",
+          error: 'Something went wrong. Please try again or email me directly.',
+          notConfigured: 'The form is not configured yet.'
+        },
+        es: {
+          name: 'Por favor, ingresá tu nombre.',
+          email: 'Por favor, ingresá un email válido.',
+          message: 'Por favor, escribí un mensaje.',
+          sending: 'Enviando...',
+          success: '¡Mensaje enviado! Te respondo pronto.',
+          error: 'Algo salió mal. Probá de nuevo o escribime por email.',
+          notConfigured: 'El formulario todavía no está configurado.'
+        }
       };
-      const msg = errMsgs[currentLang] || errMsgs.en;
+      const t = msgs[currentLang] || msgs.en;
 
-      if (!name) { alert(msg.name); return; }
-      if (!email || !emailRegex.test(email)) { alert(msg.email); return; }
-      if (!message) { alert(msg.message); return; }
+      const setStatus = (text, type) => {
+        if (!status) return;
+        status.textContent = text;
+        status.className = `form-status${type ? ' ' + type : ''}`;
+      };
 
-      const label = currentLang === 'es' ? 'Contacto desde portfolio' : 'Portfolio contact';
-      const subject = encodeURIComponent(`${label} - ${name}`);
-      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-      window.location.href = `mailto:fabricioporcelli@gmail.com?subject=${subject}&body=${body}`;
+      if (!name) { setStatus(t.name, 'error'); return; }
+      if (!email || !emailRegex.test(email)) { setStatus(t.email, 'error'); return; }
+      if (!message) { setStatus(t.message, 'error'); return; }
+
+      // Honeypot: los bots completan este campo, las personas no.
+      if (form.botcheck && form.botcheck.checked) return;
+
+      const action = form.getAttribute('action') || '';
+      if (!action || action.includes('TU_WORKER')) {
+        setStatus(t.notConfigured, 'error');
+        return;
+      }
+
+      setStatus(t.sending);
+      if (submitBtn) submitBtn.disabled = true;
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' }
+        });
+        const data = await res.json().catch(() => ({}));
+
+        if (res.ok && data.success) {
+          form.reset();
+          setStatus(t.success, 'success');
+        } else {
+          setStatus(t.error, 'error');
+        }
+      } catch (err) {
+        setStatus(t.error, 'error');
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
     });
   }
 
@@ -204,6 +256,28 @@ window.addEventListener('load', () => {
   }, 1200);
 });
 
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
+}
+
+function safeUrl(value) {
+  const url = String(value ?? '').trim();
+  if (!url) return '';
+  if (/^(javascript|data|vbscript):/i.test(url)) return '';
+  return url;
+}
+
+function safeColor(value) {
+  const color = String(value ?? '').trim();
+  return /^#[0-9a-f]{3,8}$/i.test(color) ? color : 'var(--accent-blue)';
+}
+
 async function loadPortfolioData(lang) {
   try {
     const res = await fetch('data/data.json');
@@ -224,12 +298,13 @@ function renderSkills(skillsData, lang) {
   const categories = skillsData.categories || [];
 
   grid.innerHTML = categories.map(cat => {
-    const catName = cat.name[lang] || cat.name.en;
+    const catName = escapeHtml(cat.name[lang] || cat.name.en);
+    const color = safeColor(cat.color);
     const items = cat.items.map(item =>
-      `<span class="skill-tag"><span class="skill-dot" style="color: ${cat.color}">●</span> ${item}</span>`
+      `<span class="skill-tag"><span class="skill-dot" style="color: ${color}">●</span> ${escapeHtml(item)}</span>`
     ).join('');
     return `
-      <div class="skill-category">
+      <div class="skill-category" style="--skill-accent: ${color}">
         <h4 class="skill-category-title">${catName}</h4>
         <div class="skill-items">${items}</div>
       </div>
@@ -253,37 +328,44 @@ function renderProjects(projects, lang, gridId) {
 
   grid.innerHTML = projects.map(p => {
     const desc = typeof p.description === 'object' ? (p.description[lang] || p.description.en) : p.description;
-    const icon = projectIcons[p.icon] || projectIcons.folder;
+    const iconAccent = p.icon === 'server' ? '#58a6ff' : '#d29922';
+    const icon = `<span class="project-icon-tile" style="--tile-accent: ${iconAccent}">${projectIcons[p.icon] || projectIcons.folder}</span>`;
     const detailLabel = lang === 'es' ? 'Ver detalles' : 'View details';
 
-    const githubLink = p.githubUrl
-      ? `<a href="${p.githubUrl}" class="project-ext-link" title="GitHub" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+    const githubUrl = safeUrl(p.githubUrl);
+    const externalUrl = safeUrl(p.externalUrl);
+    const detailUrl = safeUrl(p.detailUrl);
+    const statusUrl = safeUrl(p.statusUrl);
+    const statusBadgeSrc = safeUrl(p.statusBadge);
+
+    const githubLink = githubUrl
+      ? `<a href="${escapeHtml(githubUrl)}" class="project-ext-link" title="GitHub" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
         </a>`
       : '';
 
-    const externalLink = p.externalUrl && p.externalUrl !== '#'
-      ? `<a href="${p.externalUrl}" class="project-ext-link" title="External link" aria-label="External link" target="_blank" rel="noopener noreferrer">
+    const externalLink = externalUrl && externalUrl !== '#'
+      ? `<a href="${escapeHtml(externalUrl)}" class="project-ext-link" title="External link" aria-label="External link" target="_blank" rel="noopener noreferrer">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         </a>`
       : '';
 
-    const tags = p.tags.map(t => `<li class="project-tag">${t}</li>`).join('');
+    const tags = p.tags.map(t => `<li class="project-tag">${escapeHtml(t)}</li>`).join('');
 
     const workingBadge = p.working
       ? `<span class="project-working"><span class="working-dot"></span>working</span>`
       : '';
 
-    const overlayLink = p.detailUrl
-      ? `<a class="project-card-link" href="${p.detailUrl}" aria-label="${p.title}"></a>`
+    const overlayLink = detailUrl
+      ? `<a class="project-card-link" href="${escapeHtml(detailUrl)}" aria-label="${escapeHtml(p.title)}"></a>`
       : '';
 
-    const statusBadgeImg = p.statusBadge
-      ? `<img class="project-status-badge" src="${p.statusBadge}" alt="Service status" loading="lazy">`
+    const statusBadgeImg = statusBadgeSrc
+      ? `<img class="project-status-badge" src="${escapeHtml(statusBadgeSrc)}" alt="Service status" loading="lazy">`
       : '';
 
-    const statusBadge = p.statusUrl && statusBadgeImg
-      ? `<a class="project-status-link" href="${p.statusUrl}" target="_blank" rel="noopener noreferrer" aria-label="Service status">${statusBadgeImg}</a>`
+    const statusBadge = statusUrl && statusBadgeImg
+      ? `<a class="project-status-link" href="${escapeHtml(statusUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Service status">${statusBadgeImg}</a>`
       : statusBadgeImg;
 
     const headerRight = (githubLink || externalLink || statusBadge)
@@ -296,7 +378,7 @@ function renderProjects(projects, lang, gridId) {
         </div>`
       : '';
 
-    const detailHint = p.detailUrl
+    const detailHint = detailUrl
       ? `<div class="project-footer">
           <span class="project-detail-hint">${detailLabel} <span class="arrow">→</span></span>
         </div>`
@@ -310,8 +392,8 @@ function renderProjects(projects, lang, gridId) {
           ${workingBadge}
           ${headerRight}
         </div>
-        <h3 class="project-title">${p.title}</h3>
-        <p class="project-desc">${desc}</p>
+        <h3 class="project-title">${escapeHtml(p.title)}</h3>
+        <p class="project-desc">${escapeHtml(desc)}</p>
         <ul class="project-tags">${tags}</ul>
         ${detailHint}
       </article>
