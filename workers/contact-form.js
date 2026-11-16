@@ -1,9 +1,13 @@
 // Cloudflare Worker: proxy para el formulario de contacto.
-// La access key de Web3Forms vive en el secreto WEB3FORMS_KEY (nunca en el cliente).
+// Envía los mensajes con Resend. La API key vive en el secreto RESEND_API_KEY
+// (nunca en el cliente).
 //
-// Deploy: ver workers/README.md
+// Deploy: Cloudflare -> Workers & Pages -> portfolio-contact -> Edit code.
 
 const MAX_LENGTH = { name: 100, email: 254, message: 5000 };
+
+const DEFAULT_TO = 'fabricioporcelli@gmail.com';
+const DEFAULT_FROM = 'Portfolio <onboarding@resend.dev>';
 
 function isAllowedOrigin(origin) {
   try {
@@ -25,6 +29,16 @@ function isAllowedOrigin(origin) {
   }
 }
 
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
+}
+
 export default {
   async fetch(request, env) {
     const origin = request.headers.get('Origin') || '';
@@ -42,7 +56,7 @@ export default {
       return jsonResponse({ success: false, message: 'Origin not allowed' }, 403, cors);
     }
 
-    if (!env.WEB3FORMS_KEY) {
+    if (!env.RESEND_API_KEY) {
       return jsonResponse({ success: false, message: 'Server not configured' }, 500, cors);
     }
 
@@ -78,33 +92,41 @@ export default {
       return jsonResponse({ success: false, message: 'Invalid email' }, 422, cors);
     }
 
-    const payload = new FormData();
-    payload.set('access_key', env.WEB3FORMS_KEY);
-    payload.set('subject', 'Nuevo mensaje desde el portfolio');
-    payload.set('from_name', 'Portfolio - Fabricio Porcelli');
-    payload.set('name', name);
-    payload.set('email', email);
-    payload.set('message', message);
+    const payload = {
+      from: env.CONTACT_FROM || DEFAULT_FROM,
+      to: [env.CONTACT_TO || DEFAULT_TO],
+      reply_to: email,
+      subject: `Nuevo mensaje desde el portfolio - ${name}`,
+      text: `Nombre: ${name}\nEmail: ${email}\n\n${message}`,
+      html: `
+        <p><strong>Nombre:</strong> ${escapeHtml(name)}</p>
+        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+        <p>${escapeHtml(message).replace(/\n/g, '<br>')}</p>
+      `,
+    };
 
     let upstream;
     try {
-      upstream = await fetch('https://api.web3forms.com/submit', {
+      upstream = await fetch('https://api.resend.com/emails', {
         method: 'POST',
-        body: payload,
-        headers: { Accept: 'application/json' },
+        headers: {
+          Authorization: `Bearer ${env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
       });
     } catch {
       return jsonResponse({ success: false, message: 'Provider unavailable' }, 502, cors);
     }
 
     const data = await upstream.json().catch(() => ({}));
-    const ok = upstream.ok && data.success === true;
 
-    return jsonResponse(
-      { success: ok, message: ok ? 'Sent' : 'Delivery failed' },
-      ok ? 200 : 502,
-      cors
-    );
+    if (!upstream.ok) {
+      console.error('Resend delivery failed', upstream.status, data.message || '');
+      return jsonResponse({ success: false, message: 'Delivery failed' }, 502, cors);
+    }
+
+    return jsonResponse({ success: true, message: 'Sent' }, 200, cors);
   },
 };
 
