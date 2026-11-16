@@ -34,7 +34,7 @@
       {
         "name": { "en": "Infrastructure", "es": "Infraestructura" },
         "color": "#f85149",
-        "items": ["Linux", "AWS"]
+        "items": ["Linux", "Ubuntu Server", "Coolify", "Traefik", "Cloudflare Tunnel", "Tailscale", "DNS", "Self-Hosting", "AWS"]
       },
       {
         "name": { "en": "Methodologies", "es": "Metodologías" },
@@ -45,15 +45,16 @@
   },
   "projects": [
     {
-      "title": "Weather Assistant",
+      "title": "Self-Hosted Homelab",
       "description": {
-        "en": "LLM-powered weather assistant built on top of Weather API. Combines deterministic advice rules (umbrella, clothing, watering) with a tool-calling agent, SSE streaming chat with persistent sessions and history, activity scoring, and best-day ranking. Includes 313 offline tests and an LLM evaluation suite measuring tool selection and groundedness.",
-        "es": "Asistente de clima potenciado por LLM sobre Weather API. Combina reglas deterministas de consejos (paraguas, ropa, riego) con un agente de tool calling, chat con streaming SSE, sesiones e historial persistidos, puntuación de actividades y ranking del mejor día. Incluye 313 tests offline y una suite de evals de LLM que mide selección de herramientas y groundedness."
+        "en": "Self-hosted infrastructure running all my applications on a home server with Ubuntu Server LTS, Docker, and Coolify. Cloudflare handles DNS, HTTPS, and a tunnel (cloudflared) that publishes services without opening router ports or needing a public IP, while Traefik routes each subdomain to its container and Tailscale provides private admin access.",
+        "es": "Infraestructura self-hosted que corre todas mis aplicaciones en un servidor casero con Ubuntu Server LTS, Docker y Coolify. Cloudflare gestiona DNS, HTTPS y un túnel (cloudflared) que publica los servicios sin abrir puertos en el router ni necesitar IP pública, mientras Traefik enruta cada subdominio a su contenedor y Tailscale da acceso privado de administración."
       },
-      "tags": ["Python", "FastAPI", "LLM Agent", "Tool Calling", "SSE", "PostgreSQL", "Docker", "Pytest"],
-      "githubUrl": "https://github.com/FabricioPorcelli/weather-assistant",
-      "externalUrl": "#",
-      "working": true
+      "tags": ["Ubuntu Server", "Docker", "Coolify", "Traefik", "Cloudflare Tunnel", "Tailscale", "DNS", "Self-Hosting"],
+      "icon": "server",
+      "detailUrl": "projects/homelab.html",
+      "statusBadge": "https://status.fabricioporcelli.com.ar/api/badge/5/status",
+      "statusUrl": "https://status.fabricioporcelli.com.ar/status/server"
     },
     {
       "title": "Weather Dashboard",
@@ -63,8 +64,18 @@
       },
       "tags": ["JavaScript", "Leaflet", "Chart.js", "REST API", "Vanilla JS", "Frontend"],
       "githubUrl": "https://github.com/FabricioPorcelli/weather-dashboard",
-      "externalUrl": "#",
+      "externalUrl": "https://weather.fabricioporcelli.com.ar/",
       "working": true
+    },
+    {
+      "title": "Weather Assistant",
+      "description": {
+        "en": "LLM-powered weather assistant built on top of Weather API. Combines deterministic advice rules (umbrella, clothing, watering) with a tool-calling agent, SSE streaming chat with persistent sessions and history, activity scoring, and best-day ranking. Includes 313 offline tests and an LLM evaluation suite measuring tool selection and groundedness.",
+        "es": "Asistente de clima potenciado por LLM sobre Weather API. Combina reglas deterministas de consejos (paraguas, ropa, riego) con un agente de tool calling, chat con streaming SSE, sesiones e historial persistidos, puntuación de actividades y ranking del mejor día. Incluye 313 tests offline y una suite de evals de LLM que mide selección de herramientas y groundedness."
+      },
+      "tags": ["Python", "FastAPI", "LLM Agent", "Tool Calling", "SSE", "PostgreSQL", "Docker", "Pytest"],
+      "githubUrl": "https://github.com/FabricioPorcelli/weather-assistant",
+      "externalUrl": "#"
     },
     {
       "title": "Weather API Wrapper",

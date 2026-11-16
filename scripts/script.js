@@ -237,6 +237,11 @@ function renderSkills(skillsData, lang) {
   }).join('');
 }
 
+const projectIcons = {
+  folder: '<svg class="project-folder" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>',
+  server: '<svg class="project-icon-server" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></svg>'
+};
+
 function renderProjects(projects, lang, gridId) {
   const grid = document.getElementById(gridId || 'projects-grid');
   if (!grid) return;
@@ -248,6 +253,8 @@ function renderProjects(projects, lang, gridId) {
 
   grid.innerHTML = projects.map(p => {
     const desc = typeof p.description === 'object' ? (p.description[lang] || p.description.en) : p.description;
+    const icon = projectIcons[p.icon] || projectIcons.folder;
+    const detailLabel = lang === 'es' ? 'Ver detalles' : 'View details';
 
     const githubLink = p.githubUrl
       ? `<a href="${p.githubUrl}" class="project-ext-link" title="GitHub" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
@@ -267,19 +274,46 @@ function renderProjects(projects, lang, gridId) {
       ? `<span class="project-working"><span class="working-dot"></span>working</span>`
       : '';
 
-    return `
-      <article class="project-card">
-        <div class="project-header">
-          <svg class="project-folder" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-          ${workingBadge}
+    const overlayLink = p.detailUrl
+      ? `<a class="project-card-link" href="${p.detailUrl}" aria-label="${p.title}"></a>`
+      : '';
+
+    const statusBadgeImg = p.statusBadge
+      ? `<img class="project-status-badge" src="${p.statusBadge}" alt="Service status" loading="lazy">`
+      : '';
+
+    const statusBadge = p.statusUrl && statusBadgeImg
+      ? `<a class="project-status-link" href="${p.statusUrl}" target="_blank" rel="noopener noreferrer" aria-label="Service status">${statusBadgeImg}</a>`
+      : statusBadgeImg;
+
+    const headerRight = (githubLink || externalLink || statusBadge)
+      ? `<div class="project-header-right">
           <div class="project-ext-links">
             ${githubLink}
             ${externalLink}
           </div>
+          ${statusBadge}
+        </div>`
+      : '';
+
+    const detailHint = p.detailUrl
+      ? `<div class="project-footer">
+          <span class="project-detail-hint">${detailLabel} <span class="arrow">→</span></span>
+        </div>`
+      : '';
+
+    return `
+      <article class="project-card">
+        ${overlayLink}
+        <div class="project-header">
+          ${icon}
+          ${workingBadge}
+          ${headerRight}
         </div>
         <h3 class="project-title">${p.title}</h3>
         <p class="project-desc">${desc}</p>
         <ul class="project-tags">${tags}</ul>
+        ${detailHint}
       </article>
     `;
   }).join('');
