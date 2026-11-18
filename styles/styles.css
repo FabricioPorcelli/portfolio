@@ -1345,24 +1345,57 @@ ul {
   color: var(--text-secondary);
 }
 
-.tech-groups {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 28px;
+.tech-board {
+  display: flex;
+  flex-direction: column;
 }
 
-.tech-group h3 {
+.tech-row {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 24px;
+  align-items: start;
+  padding: 14px 0;
+}
+
+.tech-label {
+  padding-top: 7px;
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 600;
   color: var(--text-tertiary);
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 12px;
 }
 
-.tech-group .detail-stack {
-  margin-top: 0;
+.tech-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tech-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.tech-item:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.tech-item img {
+  width: 15px;
+  height: 15px;
 }
 
 .status-box-note {
@@ -1564,6 +1597,16 @@ ul {
   .contact-content {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+
+  .tech-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 16px 0;
+  }
+
+  .tech-label {
+    padding-top: 0;
   }
 
   .footer-content {
