@@ -9,12 +9,12 @@
       {
         "name": { "en": "Backend & Development", "es": "Backend y Desarrollo" },
         "color": "#3fb950",
-        "items": ["Git / GitHub", "Docker", "REST APIs", "FastAPI", "Pydantic", "pytest"]
+        "items": ["Git / GitHub", "Docker", "REST APIs", "FastAPI", "SQLModel", "Alembic", "Pydantic", "pytest"]
       },
       {
         "name": { "en": "Databases", "es": "Bases de Datos" },
         "color": "#d29922",
-        "items": ["PostgreSQL", "MySQL", "MS SQL Server", "Data Warehousing", "ETL", "Redis"]
+        "items": ["PostgreSQL", "MySQL", "MS SQL Server", "SQLite", "Data Warehousing", "ETL", "Redis"]
       },
       {
         "name": { "en": "Data & Analysis", "es": "Datos y Análisis" },
@@ -29,7 +29,7 @@
       {
         "name": { "en": "Frontend & Web", "es": "Frontend y Web" },
         "color": "#39c5cf",
-        "items": ["HTML", "CSS", "JavaScript", "Leaflet", "Chart.js"]
+        "items": ["HTML", "CSS", "JavaScript", "React", "TypeScript", "Tailwind CSS", "Leaflet", "Chart.js"]
       },
       {
         "name": { "en": "Infrastructure", "es": "Infraestructura" },
@@ -55,6 +55,17 @@
       "detailUrl": "projects/homelab.html",
       "statusBadge": "https://status.fabricioporcelli.com.ar/api/badge/5/status",
       "statusUrl": "https://status.fabricioporcelli.com.ar/status/server"
+    },
+    {
+      "title": "SIR - Repair Shop Management System",
+      "description": {
+        "en": "Local-first web app that manages the full lifecycle of a repair shop: intake, diagnosis, quotes, repairs, payments, pickup, and customer notifications. It replaces a decades-old Visual FoxPro system with a self-hosted FastAPI + SQLite backend and a React + TypeScript frontend running on the shop's LAN, with local data and automatic backups.",
+        "es": "Aplicación web local-first que gestiona el ciclo completo de un servicio técnico: ingreso, diagnóstico, presupuestos, reparaciones, pagos, entrega y avisos al cliente. Reemplaza un sistema en Visual FoxPro de hace décadas con un backend FastAPI + SQLite y un frontend React + TypeScript self-hosted en la LAN del local, con datos locales y backups automáticos."
+      },
+      "tags": ["Python", "FastAPI", "React", "TypeScript", "SQLite", "Self-Hosting", "Full-Stack"],
+      "icon": "wrench",
+      "detailUrl": "projects/sir.html",
+      "working": true
     },
     {
       "title": "Weather Dashboard",

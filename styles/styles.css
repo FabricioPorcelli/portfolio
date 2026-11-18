@@ -634,6 +634,10 @@ ul {
   color: var(--accent-blue);
 }
 
+.project-icon-wrench {
+  color: var(--accent-green);
+}
+
 .project-header-right {
   display: flex;
   align-items: center;
@@ -1322,6 +1326,49 @@ ul {
   width: 21px;
   height: 21px;
   display: block;
+}
+
+.detail-card-icon svg {
+  width: 21px;
+  height: 21px;
+  color: var(--card-accent, var(--accent-blue));
+}
+
+.sir-working {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.tech-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 28px;
+}
+
+.tech-group h3 {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.tech-group .detail-stack {
+  margin-top: 0;
+}
+
+.status-box-note {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--text-tertiary);
 }
 
 .detail-card h3 {
