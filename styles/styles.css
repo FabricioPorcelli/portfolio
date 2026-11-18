@@ -330,11 +330,11 @@ ul {
 }
 
 .hero-image img {
-  width: 260px;
-  height: 260px;
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid transparent;
+  border: 2px solid transparent;
   background:
     linear-gradient(var(--bg-primary), var(--bg-primary)) padding-box,
     linear-gradient(135deg, var(--accent-blue), var(--accent-green)) border-box;
@@ -1579,7 +1579,7 @@ ul {
 
   .hero {
     min-height: calc(100vh - var(--nav-height));
-    padding-top: 0;
+    padding-top: var(--nav-height);
   }
 
   .hero-content {
@@ -1589,8 +1589,8 @@ ul {
   }
 
   .hero-image img {
-    width: 180px;
-    height: 180px;
+    width: 210px;
+    height: 210px;
   }
 
   .hero-actions {
