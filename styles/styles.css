@@ -191,6 +191,10 @@ ul {
   position: relative;
 }
 
+.nav-link-index {
+  display: none;
+}
+
 .nav-link:hover {
   color: var(--text-primary);
   background: var(--bg-tertiary);
@@ -1201,8 +1205,14 @@ ul {
   .project-working,
   .working-dot,
   .fade-in,
-  .lang-toggle.pulse {
+  .lang-toggle.pulse,
+  .nav-links.open,
+  .nav-links.open li {
     animation: none;
+  }
+
+  .nav-links.closing {
+    display: none;
   }
 }
 
@@ -1526,10 +1536,44 @@ ul {
   flex-wrap: wrap;
 }
 
+@keyframes menu-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes menu-item-in {
+  from {
+    opacity: 0;
+    translate: 0 14px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes menu-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
   :root {
     --section-padding: 60px 0;
+  }
+
+  .header {
+    backdrop-filter: none;
+    background: var(--bg-primary);
   }
 
   .nav-links {
@@ -1539,26 +1583,91 @@ ul {
     left: 0;
     right: 0;
     bottom: 0;
-    background: var(--bg-primary);
+    background:
+      radial-gradient(closest-side at 15% 0%, rgba(88, 166, 255, 0.12), transparent),
+      var(--bg-primary);
     flex-direction: column;
-    justify-content: center;
-    gap: 8px;
-    padding: 24px;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    padding: 32px 28px 40px;
     z-index: 999;
+    overflow-y: auto;
+  }
+
+  .nav-links::before {
+    content: '// menu';
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-tertiary);
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .nav-links::after {
+    content: 'fabricioporcelli@gmail.com';
+    margin-top: auto;
+    padding-top: 40px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-tertiary);
   }
 
   .nav-links.open {
     display: flex;
+    animation: menu-fade 0.22s ease;
   }
 
+  .nav-links.closing {
+    display: flex;
+    animation: menu-fade-out 0.18s ease forwards;
+    pointer-events: none;
+  }
+
+  .nav-links li {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-links.open li {
+    animation: menu-item-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .nav-links.open li:nth-child(1) { animation-delay: 0.04s; }
+  .nav-links.open li:nth-child(2) { animation-delay: 0.09s; }
+  .nav-links.open li:nth-child(3) { animation-delay: 0.14s; }
+  .nav-links.open li:nth-child(4) { animation-delay: 0.19s; }
+
   .nav-link {
-    font-size: 20px;
-    padding: 16px 20px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    font-size: 26px;
+    padding: 20px 4px;
+    text-align: left;
+    border-radius: 0;
+    color: var(--text-secondary);
+    transition: color 0.2s, transform 0.2s;
+  }
+
+  .nav-link:hover {
+    background: transparent;
+    color: var(--text-primary);
+    transform: translateX(4px);
+  }
+
+  .nav-link.active {
+    color: var(--accent-blue);
   }
 
   .nav-link.active::after {
     display: none;
+  }
+
+  .nav-link-index {
+    display: inline-block;
+    font-size: 12px;
+    color: var(--accent-blue);
+    margin-right: 14px;
+    opacity: 0.8;
   }
 
   .menu-toggle {
