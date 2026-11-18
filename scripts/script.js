@@ -369,8 +369,9 @@ function renderProjects(projects, lang, gridId) {
       ? `<a class="project-status-link" href="${escapeHtml(statusUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Service status">${statusBadgeImg}</a>`
       : statusBadgeImg;
 
-    const headerRight = (githubLink || externalLink || statusBadge)
+    const headerRight = (workingBadge || githubLink || externalLink || statusBadge)
       ? `<div class="project-header-right">
+          ${workingBadge}
           <div class="project-ext-links">
             ${githubLink}
             ${externalLink}
@@ -390,7 +391,6 @@ function renderProjects(projects, lang, gridId) {
         ${overlayLink}
         <div class="project-header">
           ${icon}
-          ${workingBadge}
           ${headerRight}
         </div>
         <h3 class="project-title">${escapeHtml(p.title)}</h3>

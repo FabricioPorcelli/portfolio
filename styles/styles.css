@@ -704,7 +704,23 @@ ul {
   height: 8px;
   border-radius: 50%;
   background: var(--accent-green);
-  animation: working-pulse 1.6s ease-in-out infinite;
+}
+
+.project-working {
+  animation: working-breathe 2.6s ease-in-out infinite;
+}
+
+@keyframes working-breathe {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(63, 185, 80, 0);
+    border-color: rgba(63, 185, 80, 0.35);
+    background: rgba(63, 185, 80, 0.12);
+  }
+  50% {
+    box-shadow: 0 0 12px 1px rgba(63, 185, 80, 0.28);
+    border-color: rgba(63, 185, 80, 0.7);
+    background: rgba(63, 185, 80, 0.2);
+  }
 }
 
 @keyframes working-pulse {
@@ -1182,6 +1198,7 @@ ul {
     transition: none;
   }
 
+  .project-working,
   .working-dot,
   .fade-in,
   .lang-toggle.pulse {
