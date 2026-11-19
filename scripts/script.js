@@ -337,7 +337,8 @@ function renderSkills(skillsData, lang) {
 const projectIcons = {
   folder: '<svg class="project-folder" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>',
   server: '<svg class="project-icon-server" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></svg>',
-  wrench: '<svg class="project-icon-wrench" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>'
+  wrench: '<svg class="project-icon-wrench" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
+  weather: '<svg class="project-icon-weather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="M20 12h2"/><path d="m19.07 4.93-1.41 1.41"/><path d="M15.947 12.65a4 4 0 0 0-5.925-4.128"/><path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"/></svg>'
 };
 
 function renderProjects(projects, lang, gridId) {
@@ -351,7 +352,7 @@ function renderProjects(projects, lang, gridId) {
 
   grid.innerHTML = projects.map(p => {
     const desc = typeof p.description === 'object' ? (p.description[lang] || p.description.en) : p.description;
-    const iconAccent = p.icon === 'server' ? '#58a6ff' : (p.icon === 'wrench' ? '#3fb950' : '#d29922');
+    const iconAccent = p.icon === 'server' ? '#58a6ff' : (p.icon === 'wrench' ? '#3fb950' : (p.icon === 'weather' ? '#39c5cf' : '#d29922'));
     const icon = `<span class="project-icon-tile" style="--tile-accent: ${iconAccent}">${projectIcons[p.icon] || projectIcons.folder}</span>`;
     const detailLabel = lang === 'es' ? 'Ver detalles' : 'View details';
 

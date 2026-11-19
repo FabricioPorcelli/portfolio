@@ -70,13 +70,14 @@
     {
       "title": "Weather Dashboard",
       "description": {
-        "en": "Static web dashboard that shows current weather and a 5-day forecast for any location picked on an interactive Leaflet map. Built with vanilla JavaScript and ES Modules (no frameworks, no build step), it consumes the Weather API with parallel requests, renders temperature charts with Chart.js, and maps HTTP error codes to clear UI states.",
-        "es": "Dashboard web estático que muestra el clima actual y el pronóstico de 5 días para cualquier ubicación elegida en un mapa interactivo (Leaflet). Construido con JavaScript vanilla y ES Modules (sin frameworks ni build), consume la Weather API con requests en paralelo, grafica temperaturas con Chart.js y traduce los códigos de error HTTP a estados claros en la UI."
+        "en": "Interactive weather dashboard with a full-screen Leaflet map, city search, geolocation, current conditions, 5-day and 24-hour forecasts, light/dark themes, and an AI chat. Built with vanilla JavaScript and ES Modules, it consumes the Weather API and the Weather Assistant, with loading/error states and a responsive mobile layout.",
+        "es": "Dashboard de clima interactivo con mapa Leaflet a pantalla completa, búsqueda de ciudades, geolocalización, clima actual, pronóstico de 5 días y de las próximas 24 horas, temas claro/oscuro y un chat con IA. Construido con JavaScript vanilla y ES Modules, consume la Weather API y el Weather Assistant, con estados de carga/error y un layout responsive para móvil."
       },
-      "tags": ["JavaScript", "Leaflet", "Chart.js", "REST API", "Vanilla JS", "Frontend"],
+      "tags": ["JavaScript", "Leaflet", "REST API", "Vanilla JS", "SSE", "Playwright"],
+      "icon": "weather",
+      "detailUrl": "projects/weather-dashboard.html",
       "githubUrl": "https://github.com/FabricioPorcelli/weather-dashboard",
-      "externalUrl": "https://weather.fabricioporcelli.com.ar/",
-      "working": true
+      "externalUrl": "https://weather.fabricioporcelli.com.ar/"
     },
     {
       "title": "Weather Assistant",

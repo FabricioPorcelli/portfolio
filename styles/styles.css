@@ -642,6 +642,10 @@ ul {
   color: var(--accent-green);
 }
 
+.project-icon-weather {
+  color: #39c5cf;
+}
+
 .project-header-right {
   display: flex;
   align-items: center;
@@ -1278,6 +1282,27 @@ ul {
 .detail-stack-item img {
   width: 15px;
   height: 15px;
+}
+
+.detail-figure {
+  margin: 0 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+
+.detail-figure img {
+  width: 100%;
+  display: block;
+}
+
+.detail-figure figcaption {
+  padding: 10px 14px;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-tertiary);
 }
 
 .detail-section {
