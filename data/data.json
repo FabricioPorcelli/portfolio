@@ -68,6 +68,18 @@
       "working": true
     },
     {
+      "title": "Conviene - Supermarket Price Comparator",
+      "description": {
+        "en": "Full-stack price comparator for supermarkets in Rosario. Search any product across seven online catalogs, compare prices and stock, browse bank promotions from eight chains, and save favorites, payment methods and followed products. Built with FastAPI, PostgreSQL/PostGIS and Redis on the backend and React + TypeScript on the frontend, self-hosted with Docker.",
+        "es": "Comparador de precios full-stack para supermercados de Rosario. Buscá cualquier producto en siete catálogos online, compará precios y stock, consultá promociones bancarias de ocho cadenas y guardá favoritos, medios de pago y productos seguidos. Backend FastAPI + PostgreSQL/PostGIS y Redis, frontend React + TypeScript, self-hosted con Docker."
+      },
+      "tags": ["Python", "FastAPI", "PostgreSQL", "PostGIS", "Redis", "React", "TypeScript", "Docker"],
+      "icon": "cart",
+      "detailUrl": "projects/conviene.html",
+      "externalUrl": "https://conviene.fabricioporcelli.com.ar/",
+      "working": true
+    },
+    {
       "title": "Weather Dashboard",
       "description": {
         "en": "Interactive weather dashboard with a full-screen Leaflet map, city search, geolocation, current conditions, 5-day and 24-hour forecasts, light/dark themes, and an AI chat. Built with vanilla JavaScript and ES Modules, it consumes the Weather API and the Weather Assistant, with loading/error states and a responsive mobile layout.",

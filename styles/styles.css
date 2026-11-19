@@ -133,6 +133,15 @@ ul {
   background: rgba(88, 166, 255, 0.1);
 }
 
+.btn-github {
+  padding: 12px 14px;
+}
+
+.btn-github svg {
+  width: 18px;
+  height: 18px;
+}
+
 .comment {
   color: var(--text-tertiary);
   font-family: var(--font-mono);
@@ -644,6 +653,10 @@ ul {
 
 .project-icon-weather {
   color: #39c5cf;
+}
+
+.project-icon-cart {
+  color: #e4d6a9;
 }
 
 .project-header-right {
@@ -1737,6 +1750,11 @@ ul {
   .btn {
     width: 100%;
     justify-content: center;
+  }
+
+  .hero-actions .btn-github {
+    width: 56px;
+    align-self: flex-start;
   }
 
   .projects-grid {
