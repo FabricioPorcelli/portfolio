@@ -282,8 +282,8 @@ ul {
   content: '';
   position: absolute;
   top: 8%;
-  left: -8%;
-  width: 620px;
+  left: 0;
+  width: min(620px, 100%);
   height: 420px;
   background: radial-gradient(closest-side, rgba(88, 166, 255, 0.10), transparent);
   pointer-events: none;
@@ -452,8 +452,8 @@ ul {
   content: '';
   position: absolute;
   top: 0;
-  left: -10%;
-  width: 520px;
+  left: 0;
+  width: min(520px, 100%);
   height: 260px;
   background: radial-gradient(closest-side, rgba(88, 166, 255, 0.06), transparent);
   pointer-events: none;
@@ -1230,8 +1230,8 @@ ul {
   content: '';
   position: absolute;
   top: -40px;
-  left: -12%;
-  width: 560px;
+  left: 0;
+  width: min(560px, 100%);
   height: 320px;
   background: radial-gradient(closest-side, rgba(88, 166, 255, 0.09), transparent);
   pointer-events: none;
@@ -1582,7 +1582,9 @@ ul {
     top: var(--nav-height);
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: auto;
+    height: calc(100vh - var(--nav-height));
+    height: calc(100dvh - var(--nav-height));
     background:
       radial-gradient(closest-side at 15% 0%, rgba(88, 166, 255, 0.12), transparent),
       var(--bg-primary);
@@ -1593,6 +1595,7 @@ ul {
     padding: 32px 28px 40px;
     z-index: 999;
     overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .nav-links::before {
