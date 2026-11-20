@@ -221,6 +221,63 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  const copyEmailBtn = document.getElementById('copy-email');
+  const copyFeedback = document.getElementById('copy-feedback');
+  const emailAddress = 'fabricioporcelli@gmail.com';
+
+  function legacyCopy(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.top = '-1000px';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(textarea);
+    if (!ok) throw new Error('Copy command failed');
+  }
+
+  if (copyEmailBtn && copyFeedback) {
+    let copyFeedbackTimer = null;
+    let copyIconTimer = null;
+
+    copyEmailBtn.addEventListener('click', async () => {
+      let copied = false;
+
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(emailAddress);
+        } else {
+          legacyCopy(emailAddress);
+        }
+        copied = true;
+      } catch (err) {
+        try {
+          legacyCopy(emailAddress);
+          copied = true;
+        } catch (fallbackErr) {
+          copied = false;
+        }
+      }
+
+      const messageKey = copied ? 'contact.copied' : 'contact.copyError';
+      copyFeedback.textContent = (translations[messageKey] && translations[messageKey][currentLang])
+        || (copied ? 'Copied' : 'Could not copy');
+
+      clearTimeout(copyFeedbackTimer);
+      clearTimeout(copyIconTimer);
+      copyEmailBtn.classList.toggle('copied', copied);
+      copyFeedback.classList.add('visible');
+
+      copyFeedbackTimer = setTimeout(() => {
+        copyFeedback.classList.remove('visible');
+        copyIconTimer = setTimeout(() => copyEmailBtn.classList.remove('copied'), 220);
+      }, 1400);
+    });
+  }
+
   loadTranslations();
   reloadPortfolioData();
   registerReveals();
@@ -251,7 +308,7 @@ function revealElement(el) {
 function registerReveals() {
   if (!revealObserver) return;
   document.querySelectorAll(revealSelectors).forEach(el => {
-    if (el.dataset.reveal) return;
+    if (el.dataset.reveal || el.hasAttribute('data-static')) return;
     el.dataset.reveal = '1';
     el.classList.add('reveal');
     const siblings = Array.from(el.parentElement.children).filter(c => c.matches(revealSelectors));

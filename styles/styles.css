@@ -359,37 +359,6 @@ ul {
   box-shadow: 0 0 52px rgba(88, 166, 255, 0.25);
 }
 
-.hero-stack {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 28px;
-}
-
-.hero-stack-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--text-secondary);
-  transition: border-color 0.2s, color 0.2s;
-}
-
-.hero-stack-item:hover {
-  border-color: var(--border-hover);
-  color: var(--text-primary);
-}
-
-.hero-stack-item img {
-  width: 15px;
-  height: 15px;
-}
-
 .hero-greeting {
   font-family: var(--font-mono);
   font-size: 15px;
@@ -1077,6 +1046,93 @@ ul {
   border-color: var(--accent-blue);
   background: rgba(88, 166, 255, 0.05);
   transform: translateY(-2px);
+}
+
+.contact-link-email {
+  padding-right: 12px;
+}
+
+.contact-email-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+  color: inherit;
+}
+
+.contact-email-main:hover .contact-link-value {
+  color: var(--accent-blue);
+}
+
+.contact-copy-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  padding: 0;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.contact-copy-btn:hover,
+.contact-copy-btn:focus-visible {
+  color: var(--accent-blue);
+  border-color: var(--accent-blue);
+  background: rgba(88, 166, 255, 0.08);
+}
+
+.contact-copy-btn svg {
+  width: 17px;
+  height: 17px;
+}
+
+.contact-copy-btn .check-icon {
+  display: none;
+}
+
+.contact-copy-btn.copied .copy-icon {
+  display: none;
+}
+
+.contact-copy-btn.copied .check-icon {
+  display: block;
+  color: var(--accent-green);
+}
+
+.contact-copy-feedback {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
+  padding: 5px 9px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-primary);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.contact-copy-feedback.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s;
 }
 
 .contact-link-icon {
