@@ -20,6 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
         el.innerHTML = translations[key][lang];
       }
     });
+    document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
+      const key = el.getAttribute('data-i18n-aria-label');
+      if (translations[key] && translations[key][lang]) {
+        el.setAttribute('aria-label', translations[key][lang]);
+      }
+    });
     if ( langToggle ) langToggle.textContent = lang === 'es' ? 'ES' : 'EN';
     document.documentElement.lang = lang;
   }

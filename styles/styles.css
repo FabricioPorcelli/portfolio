@@ -670,6 +670,7 @@ ul {
   position: relative;
   z-index: 2;
   display: flex;
+  align-items: center;
   gap: 12px;
 }
 
@@ -756,12 +757,87 @@ ul {
 }
 
 .project-ext-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
   color: var(--text-tertiary);
   transition: color 0.2s;
 }
 
+.project-ext-link svg {
+  display: block;
+}
+
+.project-ext-link-external svg {
+  transform: translateY(1px);
+}
+
 .project-ext-link:hover {
   color: var(--accent-blue);
+}
+
+.project-private {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-tertiary);
+  cursor: default;
+  transition: color 0.2s;
+}
+
+.project-private:hover,
+.project-private:focus-visible {
+  color: var(--text-primary);
+}
+
+.project-private-tooltip {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  padding: 6px 10px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-primary);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.project-private:hover .project-private-tooltip,
+.project-private:focus-visible .project-private-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.private-repo-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: center;
+  padding: 8px 14px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.private-repo-tag svg {
+  width: 15px;
+  height: 15px;
 }
 
 .project-title {
@@ -1742,6 +1818,10 @@ ul {
 
   .hero-actions .btn-github {
     width: 56px;
+    align-self: flex-start;
+  }
+
+  .private-repo-tag {
     align-self: flex-start;
   }
 

@@ -65,6 +65,7 @@
       "tags": ["Python", "FastAPI", "React", "TypeScript", "SQLite", "Self-Hosting", "Full-Stack"],
       "icon": "wrench",
       "detailUrl": "projects/sir.html",
+      "privateRepo": true,
       "working": true
     },
     {
@@ -77,6 +78,7 @@
       "icon": "cart",
       "detailUrl": "projects/conviene.html",
       "externalUrl": "https://conviene.fabricioporcelli.com.ar/",
+      "privateRepo": true,
       "working": true
     },
     {

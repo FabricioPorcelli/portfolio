@@ -34,6 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
         el.placeholder = translations[key][lang];
       }
     });
+    document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
+      const key = el.getAttribute('data-i18n-aria-label');
+      if (translations[key] && translations[key][lang]) {
+        el.setAttribute('aria-label', translations[key][lang]);
+      }
+    });
     const cvLink = document.getElementById('cv-link');
     if (cvLink) {
       cvLink.href = lang === 'es'
@@ -356,6 +362,7 @@ function renderProjects(projects, lang, gridId) {
     const iconAccent = p.icon === 'server' ? '#58a6ff' : (p.icon === 'wrench' ? '#3fb950' : (p.icon === 'weather' ? '#39c5cf' : (p.icon === 'cart' ? '#e4d6a9' : '#d29922')));
     const icon = `<span class="project-icon-tile" style="--tile-accent: ${iconAccent}">${projectIcons[p.icon] || projectIcons.folder}</span>`;
     const detailLabel = lang === 'es' ? 'Ver detalles' : 'View details';
+    const privateLabel = lang === 'es' ? 'Repositorio privado' : 'Private repository';
 
     const githubUrl = safeUrl(p.githubUrl);
     const externalUrl = safeUrl(p.externalUrl);
@@ -370,9 +377,16 @@ function renderProjects(projects, lang, gridId) {
       : '';
 
     const externalLink = externalUrl && externalUrl !== '#'
-      ? `<a href="${escapeHtml(externalUrl)}" class="project-ext-link" title="External link" aria-label="External link" target="_blank" rel="noopener noreferrer">
+      ? `<a href="${escapeHtml(externalUrl)}" class="project-ext-link project-ext-link-external" title="External link" aria-label="External link" target="_blank" rel="noopener noreferrer">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         </a>`
+      : '';
+
+    const privateBadge = p.privateRepo
+      ? `<span class="project-private" tabindex="0" aria-label="${escapeHtml(privateLabel)}">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span class="project-private-tooltip">${escapeHtml(privateLabel)}</span>
+        </span>`
       : '';
 
     const workingBadge = p.working
@@ -391,11 +405,12 @@ function renderProjects(projects, lang, gridId) {
       ? `<a class="project-status-link" href="${escapeHtml(statusUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Service status">${statusBadgeImg}</a>`
       : statusBadgeImg;
 
-    const headerRight = (workingBadge || githubLink || externalLink || statusBadge)
+    const headerRight = (workingBadge || githubLink || privateBadge || externalLink || statusBadge)
       ? `<div class="project-header-right">
           ${workingBadge}
           <div class="project-ext-links">
             ${githubLink}
+            ${privateBadge}
             ${externalLink}
           </div>
           ${statusBadge}

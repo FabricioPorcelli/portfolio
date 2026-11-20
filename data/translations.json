@@ -170,5 +170,6 @@
   "wd.status.name": { "en": "live in production", "es": "en producción" },
   "wd.status.desc": { "en": "Finished and running in production.", "es": "Finalizada y funcionando en producción." },
   "cv.live.title": { "en": "Live", "es": "En vivo" },
-  "cv.live.desc": { "en": "Live on my self-hosted homelab.", "es": "En vivo en mi homelab self-hosted." }
+  "cv.live.desc": { "en": "Live on my self-hosted homelab.", "es": "En vivo en mi homelab self-hosted." },
+  "project.privateRepo": { "en": "Private repository", "es": "Repositorio privado" }
 }
