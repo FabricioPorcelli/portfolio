@@ -375,8 +375,6 @@ function renderProjects(projects, lang, gridId) {
         </a>`
       : '';
 
-    const tags = p.tags.map(t => `<li class="project-tag">${escapeHtml(t)}</li>`).join('');
-
     const workingBadge = p.working
       ? `<span class="project-working"><span class="working-dot"></span>working</span>`
       : '';
@@ -419,7 +417,6 @@ function renderProjects(projects, lang, gridId) {
         </div>
         <h3 class="project-title">${escapeHtml(p.title)}</h3>
         <p class="project-desc">${escapeHtml(desc)}</p>
-        <ul class="project-tags">${tags}</ul>
         ${detailHint}
       </article>
     `;

@@ -112,27 +112,6 @@
       "externalUrl": "#"
     },
     {
-      "title": "Agricultural Yield Forecasting",
-      "description": {
-        "en": "Prediction of agricultural yield (kg/ha) by province and campaign in Argentina, combining historical crop statistics from the Ministry of Agriculture (SIIA) with NASA POWER climate data. Daily weather is aggregated into phenological phases for soybeans, using a reusable pipeline designed to scale to other crops.",
-        "es": "Predicción del rendimiento agrícola (kg/ha) por provincia y campaña en Argentina, combinando datos históricos de estimaciones agrícolas del Ministerio de Agricultura (SIIA) con datos climáticos de NASA POWER. El clima diario se agrega en fases fenológicas para soja, con un pipeline reutilizable pensado para escalar a otros cultivos."
-      },
-      "tags": ["Python", "Time Series", "Forecasting", "Pandas", "Geopandas", "NASA POWER", "Feature Engineering"],
-      "githubUrl": "https://github.com/FabricioPorcelli/yield-forecasting",
-      "externalUrl": "#",
-      "working": true
-    },
-    {
-      "title": "AgroVision-Edge | Crop vs Weed Detection",
-      "description": {
-        "en": "Edge-ready computer vision system using YOLOv8n to distinguish crops from weeds with mAP50=0.904. Optimized for on-device inference via ONNX export and INT8 quantization, cutting model size by 42% (6.25 → 3.60 MB) with only 1.84 mAP points lost. Includes CLI and an interactive Streamlit demo.",
-        "es": "Sistema de visión por computadora para dispositivo edge usando YOLOv8n que distingue cultivo de maleza con mAP50=0.904. Optimizado para inferencia on-device mediante exportación a ONNX y cuantización INT8, reduciendo el tamaño del modelo un 42% (6.25 → 3.60 MB) con apenas 1.84 puntos de mAP perdidos. Incluye CLI y demo interactiva con Streamlit."
-      },
-      "tags": ["Computer Vision", "YOLO", "Edge AI", "ONNX", "INT8 Quantization", "Streamlit", "PyTorch"],
-      "githubUrl": "https://github.com/FabricioPorcelli/weed-detection",
-      "externalUrl": "https://agrovisionedge.streamlit.app/"
-    },
-    {
       "title": "Agentic Multi-Source RAG",
       "description": {
         "en": "Engineered an intelligent conversational assistant using Agentic RAG architecture. Integrated vector (ChromaDB/FAISS), tabular, and graph databases to enable multi-source information retrieval, serving responses through lightweight LLMs via REST APIs.",
@@ -182,6 +161,26 @@
       },
       "tags": ["Computer Vision", "Deep Learning", "Embeddings", "Gradio", "Docker", "YOLO", "ResNet", "CNN"],
       "githubUrl": "https://github.com/FabricioPorcelli/tuia-dog-recognition-app",
+      "externalUrl": "#"
+    },
+    {
+      "title": "AgroVision-Edge | Crop vs Weed Detection",
+      "description": {
+        "en": "Edge-ready computer vision system using YOLOv8n to distinguish crops from weeds with mAP50=0.904. Optimized for on-device inference via ONNX export and INT8 quantization, cutting model size by 42% (6.25 → 3.60 MB) with only 1.84 mAP points lost. Includes CLI and an interactive Streamlit demo.",
+        "es": "Sistema de visión por computadora para dispositivo edge usando YOLOv8n que distingue cultivo de maleza con mAP50=0.904. Optimizado para inferencia on-device mediante exportación a ONNX y cuantización INT8, reduciendo el tamaño del modelo un 42% (6.25 → 3.60 MB) con apenas 1.84 puntos de mAP perdidos. Incluye CLI y demo interactiva con Streamlit."
+      },
+      "tags": ["Computer Vision", "YOLO", "Edge AI", "ONNX", "INT8 Quantization", "Streamlit", "PyTorch"],
+      "githubUrl": "https://github.com/FabricioPorcelli/weed-detection",
+      "externalUrl": "https://agrovisionedge.streamlit.app/"
+    },
+    {
+      "title": "Agricultural Yield Forecasting",
+      "description": {
+        "en": "Prediction of agricultural yield (kg/ha) by province and campaign in Argentina, combining historical crop statistics from the Ministry of Agriculture (SIIA) with NASA POWER climate data. Daily weather is aggregated into phenological phases for soybeans, using a reusable pipeline designed to scale to other crops.",
+        "es": "Predicción del rendimiento agrícola (kg/ha) por provincia y campaña en Argentina, combinando datos históricos de estimaciones agrícolas del Ministerio de Agricultura (SIIA) con datos climáticos de NASA POWER. El clima diario se agrega en fases fenológicas para soja, con un pipeline reutilizable pensado para escalar a otros cultivos."
+      },
+      "tags": ["Python", "Time Series", "Forecasting", "Pandas", "Geopandas", "NASA POWER", "Feature Engineering"],
+      "githubUrl": "https://github.com/FabricioPorcelli/yield-forecasting",
       "externalUrl": "#"
     }
   ]

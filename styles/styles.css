@@ -784,18 +784,6 @@ ul {
   flex: 1;
 }
 
-.project-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.project-tag {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--accent-blue);
-}
-
 /* CURRICULUM */
 .curriculum-content {
   display: grid;
